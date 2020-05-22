@@ -1,21 +1,10 @@
 package it.univpm.marcolini.twitterGeoAPI;
 
-
-import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStreamReader;
-
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import it.univpm.marcolini.model.Record;
-import it.univpm.marcolini.model.Record2;
+import it.univpm.marcolini.service.JsonUtils;
 
 //@SpringBootApplication
 public class TwitterGeoApiApplication {
@@ -35,8 +24,10 @@ public class TwitterGeoApiApplication {
 //			// TODO Auto-generated catch block
 //			e.printStackTrace();
 //		}
-		
-		String json="            {\n" + 
+		String json="{\n" + 
+				"    \"result\": {\n" + 
+				"        \"places\": [\n" + 
+				"            {\n" + 
 				"                \"id\": \"690b43d9593bd3ec\",\n" + 
 				"                \"url\": \"https://api.twitter.com/1.1/geo/id/690b43d9593bd3ec.json\",\n" + 
 				"                \"place_type\": \"city\",\n" + 
@@ -44,6 +35,49 @@ public class TwitterGeoApiApplication {
 				"                \"full_name\": \"Macerata, Marche\",\n" + 
 				"                \"country_code\": \"IT\",\n" + 
 				"                \"country\": \"Italia\",\n" + 
+				"                \"contained_within\": [\n" + 
+				"                    {\n" + 
+				"                        \"id\": \"a447759bf564568c\",\n" + 
+				"                        \"url\": \"https://api.twitter.com/1.1/geo/id/a447759bf564568c.json\",\n" + 
+				"                        \"place_type\": \"admin\",\n" + 
+				"                        \"name\": \"Macerata\",\n" + 
+				"                        \"full_name\": \"Macerata, Marche\",\n" + 
+				"                        \"country_code\": \"IT\",\n" + 
+				"                        \"country\": \"Italia\",\n" + 
+				"                        \"centroid\": [\n" + 
+				"                            13.15103406948766,\n" + 
+				"                            43.15300300086295\n" + 
+				"                        ],\n" + 
+				"                        \"bounding_box\": {\n" + 
+				"                            \"type\": \"Polygon\",\n" + 
+				"                            \"coordinates\": [\n" + 
+				"                                [\n" + 
+				"                                    [\n" + 
+				"                                        12.8296979970071,\n" + 
+				"                                        42.8318220004272\n" + 
+				"                                    ],\n" + 
+				"                                    [\n" + 
+				"                                        12.8296979970071,\n" + 
+				"                                        43.4741840012987\n" + 
+				"                                    ],\n" + 
+				"                                    [\n" + 
+				"                                        13.7430930021133,\n" + 
+				"                                        43.4741840012987\n" + 
+				"                                    ],\n" + 
+				"                                    [\n" + 
+				"                                        13.7430930021133,\n" + 
+				"                                        42.8318220004272\n" + 
+				"                                    ],\n" + 
+				"                                    [\n" + 
+				"                                        12.8296979970071,\n" + 
+				"                                        42.8318220004272\n" + 
+				"                                    ]\n" + 
+				"                                ]\n" + 
+				"                            ]\n" + 
+				"                        },\n" + 
+				"                        \"attributes\": {}\n" + 
+				"                    }\n" + 
+				"                ],\n" + 
 				"                \"centroid\": [\n" + 
 				"                    13.461903164674357,\n" + 
 				"                    43.3055437\n" + 
@@ -76,19 +110,25 @@ public class TwitterGeoApiApplication {
 				"                    ]\n" + 
 				"                },\n" + 
 				"                \"attributes\": {}\n" + 
-				"            }";
-		ObjectMapper obj = new ObjectMapper();
-		try {
-			Record2 uno = obj.readValue(json, Record2.class);
-			System.out.println(uno);
-		} catch (JsonMappingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (JsonProcessingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		};
+				"            }\n" + 
+				"        ]\n" + 
+				"    },\n" + 
+				"    \"query\": {\n" + 
+				"        \"url\": \"https://api.twitter.com/1.1/geo/search.json?max_results=1&query=Macerata&\",\n" + 
+				"        \"type\": \"search\",\n" + 
+				"        \"params\": {\n" + 
+				"            \"accuracy\": 0.0,\n" + 
+				"            \"granularity\": \"neighborhood\",\n" + 
+				"            \"query\": \"Macerata\",\n" + 
+				"            \"autocomplete\": false,\n" + 
+				"            \"trim_place\": false\n" + 
+				"        }\n" + 
+				"    }\n" + 
+				"}";
 		
+		String jsonClean = JsonUtils.stringCleaner(json);
+		Record prova = JsonUtils.toRecord(jsonClean);
+		System.out.println(prova);
 	}
 
 }
