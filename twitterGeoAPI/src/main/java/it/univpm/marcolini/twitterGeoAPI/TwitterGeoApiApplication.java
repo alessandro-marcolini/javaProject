@@ -6,11 +6,11 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import it.univpm.marcolini.model.Record;
 import it.univpm.marcolini.service.JsonUtils;
 
-//@SpringBootApplication
+@SpringBootApplication
 public class TwitterGeoApiApplication {
 
 	public static void main(String[] args) {
-		//SpringApplication.run(TwitterGeoApiApplication.class, args);
+		SpringApplication.run(TwitterGeoApiApplication.class, args);
 //		String url="https://wd4hfxnxxa.execute-api.us-east-2.amazonaws.com/dev/user/1.1/geo/search.json?query=Macerata";
 //		URLConnection conn;
 //		

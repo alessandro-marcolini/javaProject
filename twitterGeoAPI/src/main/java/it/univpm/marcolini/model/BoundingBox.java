@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 /**
  * @author Alessandro Marcolini
  * @version 1.0
- * @see Point
  */
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -21,10 +20,10 @@ public class BoundingBox {
      * @param type forma geometrica del bounding box
      * @param coordinates <code>ArrayList</code> di oggetti di tipo Point che definiscono i vertici del bounding box
      */
-//    public BoundingBox2(String type, List<Double> coordinates) {
-//    	this.type = type;
-//    	this.coordinates = coordinates;
-//    }
+    public BoundingBox(String type, Double[][][] coordinates) {
+    	this.type = type;
+    	this.coordinates = coordinates;
+    }
     
     public BoundingBox() {
     }
@@ -50,20 +49,4 @@ public class BoundingBox {
     	ris+="]";
     	return ris;
     }
-
-//    /**
-//     * @return 
-//     */
-//    public double getArea() {
-//        // TODO implement here
-//        return 0.0d;
-//    }
-//
-//    /**
-//     * @return
-//     */
-//    public double getPerimeter() {
-//        // TODO implement here
-//        return 0.0d;
-//    }
 }

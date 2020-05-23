@@ -8,19 +8,16 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 /**
  * @author Alessandro Marcolini
  * @version 1.0
- * @see Point
  * @see BoundingBox
  */
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonIgnoreProperties(value = { "url","id","name", "country_code", "contained_within", "attributes"})
+@JsonIgnoreProperties(value = { "url","id","name", "country_code", "contained_within", "attributes", "place_type"})
 @JsonPropertyOrder({
 	"country",
-	
 	"full_name",
 	"bounding_box",
 	"centroid",
-	"place_type",
 })
 public class Record {
 	
@@ -29,13 +26,7 @@ public class Record {
      */
 	@JsonProperty("full_name")
 	protected String fullName;
-
-	/**
-     * Indica il tipo di località, se si tratta di comune(=city) o di provincia(=admin)
-     */
-	@JsonProperty("place_type")
-	protected String placeType;
-
+	
 	/**
      * Nome dello Stato
      */
@@ -43,7 +34,7 @@ public class Record {
 	protected String country;
 
 	/**
-     * <code>Point</code> che rappresenta le coordinate del centro della località
+     * <code>Array</code> di Double che rappresenta le coordinate del centro della località
      */
 	@JsonProperty("centroid")
 	protected Double[] centroid = new Double[2];
@@ -53,12 +44,6 @@ public class Record {
      */
 	@JsonProperty("bounding_box")
 	protected BoundingBox boundingBox;
-	
-	/**
-     * <code>Record</code> della provincia a cui appartiene
-     */
-	@JsonProperty("contained_within")
-	protected Record container;
 
 	/**
 	 * Crea un oggetto di tipo <code>Record</code>
@@ -69,20 +54,16 @@ public class Record {
 	 * @param boundingBox 
 	 * @param container 
 	 */
-	public Record(String placeType, String fullName, String country, Double[] centroid, BoundingBox boundingBox, Record container) {
-		this.placeType = placeType;
+	public Record(String fullName, String country, Double[] centroid, BoundingBox boundingBox) {
 		this.fullName = fullName;
 		this.country = country;
 		this.centroid = centroid;
 		this.boundingBox = boundingBox;
-		this.container = container;
 	}
 
 	public Record() {
 	}
 
-	
-	
 	/**
 	 * @return the fullName
 	 */
@@ -95,20 +76,6 @@ public class Record {
 	 */
 	public void setFullName(String fullName) {
 		this.fullName = fullName;
-	}
-
-	/**
-	 * @return the placeType
-	 */
-	public String getPlaceType() {
-		return placeType;
-	}
-
-	/**
-	 * @param placeType the placeType to set
-	 */
-	public void setPlaceType(String placeType) {
-		this.placeType = placeType;
 	}
 
 	/**
@@ -153,31 +120,13 @@ public class Record {
 		this.boundingBox = boundingBox;
 	}
 
-	/**
-	 * @return the container
-	 */
-	public Record getContainer() {
-		return container;
-	}
-
-	/**
-	 * @param container the container to set
-	 */
-	public void setContainer(Record container) {
-		this.container = container;
-	}
-
 	@Override
 	public String toString() {
 		return "Location:\n"
 				+ "{nome :  "+ this.getFullName()+ " \n"
-				+ " categoria :  "+ this.getPlaceType()+ " \n"
 				+ " stato :  " + this.getCountry() + " \n"
 				+ " coordinate del centro : ["+this.getCentroid().toString()+"]\n"
 				+ " boundingBox : "+ this.boundingBox.toString()+"}\n";
 				
 	}
-	
-	
-	
 }
