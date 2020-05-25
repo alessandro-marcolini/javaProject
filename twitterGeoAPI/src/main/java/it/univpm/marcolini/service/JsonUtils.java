@@ -13,9 +13,9 @@ import it.univpm.marcolini.model.Record;
  */
 public class JsonUtils {
 	/**
-	 * Prende in input la risposta della API e restituisce una stringa modificata
-	 * @param json la risposta ricevuta dalla API twitter
-	 * @return 
+	 * takes the response from the API and returns a modified <code>String</code>
+	 * @param json the API response
+	 * @return json <code>String</code>
 	 */
 	public static String stringCleaner(String json) {
 		JSONObject response = new JSONObject(json);
@@ -26,9 +26,9 @@ public class JsonUtils {
 	}
 	
 	/**
-	 * Prende in input una stringa json e crea un <code>Record</code> deserializzando il json
-	 * @param jsonClean una stringa json
-	 * @return un <code>Record</code> ottenuto dalla stringa
+	 * takes a json <code>String</code> and returns a <code>Record</code> created from it
+	 * @param jsonClean json <code>String</code>
+	 * @return a <code>Record</code>
 	 */
 	public static Record toRecord(String jsonClean) {
 		ObjectMapper obj = new ObjectMapper();

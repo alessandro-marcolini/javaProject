@@ -22,37 +22,36 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 public class Record {
 	
 	/**
-     * nome della località, nome della regione
+     * city name, region name
      */
 	@JsonProperty("full_name")
 	protected String fullName;
 	
 	/**
-     * Nome dello Stato
+     * country name
      */
 	@JsonProperty("country")
 	protected String country;
 
 	/**
-     * <code>Array</code> di Double che rappresenta le coordinate del centro della località
+     * an <code>Array</code> of Double that represent the coordinates of the center
      */
 	@JsonProperty("centroid")
 	protected Double[] centroid = new Double[2];
 
 	/**
-     * <code>BoundingBox</code> che rappresenta i confini della località
+     * <code>BoundingBox</code> that represents the bounds of the city
      */
 	@JsonProperty("bounding_box")
 	protected BoundingBox boundingBox;
 
 	/**
-	 * Crea un oggetto di tipo <code>Record</code>
+	 * creates a <code>Record</code>
 	 * @param placeType 
 	 * @param fullName 
 	 * @param country 
 	 * @param centroid 
 	 * @param boundingBox 
-	 * @param container 
 	 */
 	public Record(String fullName, String country, Double[] centroid, BoundingBox boundingBox) {
 		this.fullName = fullName;
