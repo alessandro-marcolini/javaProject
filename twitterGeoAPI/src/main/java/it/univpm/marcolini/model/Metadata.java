@@ -3,7 +3,7 @@ package it.univpm.marcolini.model;
 public class Metadata {
 	
 	protected String alias;
-	protected String attribute;
+	protected String sourceField;
 	protected String type;
 	
 	/**
@@ -21,17 +21,17 @@ public class Metadata {
 	}
 
 	/**
-	 * @return the attribute
+	 * @return the sourceField
 	 */
-	public String getAttribute() {
-		return attribute;
+	public String getsourceField() {
+		return sourceField;
 	}
 
 	/**
-	 * @param attribute the attribute to set
+	 * @param sourceField the sourceField to set
 	 */
-	public void setAttribute(String attribute) {
-		this.attribute = attribute;
+	public void setsourceField(String sourceField) {
+		this.sourceField = sourceField;
 	}
 
 	/**
@@ -48,9 +48,9 @@ public class Metadata {
 		this.type = type;
 	}
 
-	public Metadata(String alias, String attribute, String type) {
+	public Metadata(String alias, String sourceField, String type) {
 		this.alias = alias;
-		this.attribute = attribute;
+		this.sourceField = sourceField;
 		this.type = type;
 	}
 	

@@ -48,8 +48,8 @@ public class Controller {
 	public ArrayList<Record> getResults() throws CityNotFoundException{
 		String[] cities = {"Macerata", "Ancona", "Roma", "Milano", "Palermo", "Genova", "Torino", "Aosta", "Cagliari", "Firenze"};
 		ArrayList<Record> list = new ArrayList<Record>();
-		for(int i=0; i<9; i++) {
-			list.add(getRecordFromParam(cities[i]));
+		for(String city : cities) {
+			list.add(getRecordFromParam(city));
 		}
 		return list;
 	}

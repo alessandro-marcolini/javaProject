@@ -3,6 +3,9 @@ package it.univpm.marcolini.service;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
+import java.io.IOException;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.http.HttpStatus;
@@ -26,7 +29,7 @@ public class JsonService {
 		JSONObject response = new JSONObject(json);
 		JSONArray places = response.getJSONObject("result").getJSONArray("places");
 		if(places.isEmpty())
-			throw new CityNotFoundException(HttpStatus.NOT_FOUND,"Non siamo riusciti a trovare la città che cercavi... controlla se lo spelling è corretto.");
+			throw new CityNotFoundException(HttpStatus.NOT_FOUND,"Città non trovata.");
 		JSONObject map = places.getJSONObject(0);
 		String jsonClean = map.toString();
 		return jsonClean;
@@ -49,5 +52,16 @@ public class JsonService {
 		}
 		return location;
 	}
+	
+//	public static String toJson(Record r) {
+//		String jsonOut = "";
+//		ObjectMapper obj = new ObjectMapper();
+//		try {
+//			jsonOut = obj.writeValueAsString(r);
+//		}catch(IOException e) {
+//			e.printStackTrace();
+//		}
+//		return jsonOut;
+//	}
 	
 }

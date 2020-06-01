@@ -1,4 +1,5 @@
 package it.univpm.marcolini.model;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
@@ -26,25 +27,21 @@ public class BoundingBox {
      * verteces of the boundingBox
      */
     @JsonProperty("coordinates")
-    protected GeoPoint[] coordinates = new GeoPoint[5];	//[1][5][2];
-	
-	/**
-     * default constructor
-     */
-    public BoundingBox() {
-    }
+    protected GeoPoint[] coordinates = new GeoPoint[5];
 
     /**
      * constructor
      * @param type 
      * @param coordinates 
      */
-    public BoundingBox(String type, Double[][][] coordinates) {
+    public BoundingBox(String type, GeoPoint[] coordinates) {
     	this.type = type;
-    	for(int i=0; i<5; i++) {
-			this.coordinates[i] = new GeoPoint(coordinates[0][i]);
-		}
+    	this.coordinates = coordinates;
     }
+    /**
+     * default constructor
+     */
+    public BoundingBox() {}
     
     /**
 	 * @return the type

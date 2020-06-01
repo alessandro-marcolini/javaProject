@@ -1,7 +1,5 @@
 package it.univpm.marcolini.model;
 
-import java.lang.Math;
-
 public class GeoPoint {
 	public Double lat;
 	public Double lng;
@@ -16,12 +14,7 @@ public class GeoPoint {
 		this.lat = coord[1];
 	}
 	
-	public Double getDistanceFrom(GeoPoint a) {
-		 final Double r = 6372.7955;
-		 return (r * (Math.acos(Math.sin(a.getLat())) * Math.sin(this.getLat()) + 
-				 Math.cos(a.getLat()) * Math.cos(this.getLat()) * Math.cos(a.getLng()) - this.getLng()));
-	}
-	
+
 	/**
 	 * @return the lat
 	 */
