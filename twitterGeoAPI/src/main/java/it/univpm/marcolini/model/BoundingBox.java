@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 /**
  * @author Alessandro Marcolini
  * @version 1.0
+ * @see GeoPoint
  */
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -15,23 +16,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 })
 public class BoundingBox {
 
-    /**
-     * constructor
-     * @param type 
-     * @param coordinates 
-     */
-    public BoundingBox(String type, Double[][][] coordinates) {
-    	this.type = type;
-    	this.coordinates = coordinates;
-    }
-    
-    /**
-     * default constructor
-     */
-    public BoundingBox() {
-    }
-
-    /**
+	/**
      * shape of the boundingBox
      */
     @JsonProperty("type")
@@ -41,13 +26,61 @@ public class BoundingBox {
      * verteces of the boundingBox
      */
     @JsonProperty("coordinates")
-    protected Double[][][] coordinates = new Double[1][5][2];
+    protected GeoPoint[] coordinates = new GeoPoint[5];	//[1][5][2];
+	
+	/**
+     * default constructor
+     */
+    public BoundingBox() {
+    }
+
+    /**
+     * constructor
+     * @param type 
+     * @param coordinates 
+     */
+    public BoundingBox(String type, Double[][][] coordinates) {
+    	this.type = type;
+    	for(int i=0; i<5; i++) {
+			this.coordinates[i] = new GeoPoint(coordinates[0][i]);
+		}
+    }
+    
+    /**
+	 * @return the type
+	 */
+	public String getType() {
+		return type;
+	}
+
+	/**
+	 * @param type the type to set
+	 */
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	/**
+	 * @return the coordinates
+	 */
+	public GeoPoint[] getCoordinates() {
+		return coordinates;
+	}
+
+	/**
+	 * @param coordinates the coordinates to set
+	 */
+	public void setCoordinates(Double[][][] coordinates) {
+		for(int i=0; i<5; i++) {
+			this.coordinates[i] = new GeoPoint(coordinates[0][i]);
+		}
+	}
 
     @Override
     public String toString() {
     	String ris="[Forma geometrica del confine : " +this.type + "\nCoordinate dei vertici: ";
     	for(int i=0; i<5; i++) {
-    		ris+="\n [" + this.coordinates[0][i][0] +", "+ this.coordinates[0][i][1] + "]";
+    		ris+= this.coordinates[i].toString();
     	}
     	ris+="]";
     	return ris;

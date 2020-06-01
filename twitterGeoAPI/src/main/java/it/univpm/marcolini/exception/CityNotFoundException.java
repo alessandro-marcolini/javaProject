@@ -1,7 +1,7 @@
 /**
  * 
  */
-package it.univpm.marcolini.util.exception;
+package it.univpm.marcolini.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.server.ResponseStatusException;
