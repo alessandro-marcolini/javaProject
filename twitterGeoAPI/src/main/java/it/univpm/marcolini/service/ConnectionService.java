@@ -27,7 +27,9 @@ public class ConnectionService {
 			InputStream in = conn.getInputStream();
 			BufferedReader reader = new BufferedReader(new InputStreamReader(in));
 			
-			response += reader.readLine();
+			String line="";
+			while((line = reader.readLine())!=null)
+				response += line;
 			
 			in.close();
 			reader.close();

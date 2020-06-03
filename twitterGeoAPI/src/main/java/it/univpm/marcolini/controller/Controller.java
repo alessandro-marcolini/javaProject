@@ -25,7 +25,8 @@ import it.univpm.marcolini.service.JsonService;
 public class Controller {
 	
 	String url= "https://wd4hfxnxxa.execute-api.us-east-2.amazonaws.com/dev/user/1.1/geo/search.json?max_results=1";
-		
+	String townUrl = "https://raw.githubusercontent.com/napolux/italia/master/json/province.json";
+
 	
 	/**
 	 * maps the "/search?city=" endpoint with a get request
@@ -48,7 +49,9 @@ public class Controller {
 	 */
 	@GetMapping("/data")
 	public ArrayList<Record> getResults() throws CityNotFoundException{
-		String[] cities = {"Macerata", "Ancona", "Roma", "Milano", "Palermo", "Genova", "Torino", "Aosta", "Cagliari", "Firenze"};
+		//String[] cities = {"Macerata", "Ancona", "Roma", "Milano", "Palermo", "Genova", "Torino", "Aosta", "Cagliari", "Firenze"};
+		String townJson = ConnectionService.getJsonFromURL(townUrl);
+		String[] cities = JsonService.randomCities(townJson);
 		ArrayList<Record> list = new ArrayList<Record>();
 		for(String city : cities) {
 			list.add(getRecordFromParam(city));
