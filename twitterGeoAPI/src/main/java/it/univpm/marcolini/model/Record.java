@@ -18,7 +18,7 @@ import it.univpm.marcolini.util.GeoUtils;
 @JsonIgnoreProperties(value = { "url", "id", "name", "country_code", "contained_within", "attributes", "place_type" })
 @JsonPropertyOrder({"full_name", "centroid", "country", "bounding_box"})
 
-public class Record {
+public class Record extends GeoPoint{
 
 	/**
 	 * city name, region name
@@ -33,14 +33,14 @@ public class Record {
 	protected String country;
 
 	/**
-	 * an <code>Array</code> of Double that represent the coordinates of the center
+	 * a {@link GeoPoint} that represent the coordinates of the center
 	 */
 
 	@JsonProperty("centroid")
 	protected GeoPoint centro = null;
 
 	/**
-	 * <code>BoundingBox</code> that represents the bounds of the city
+	 * {@link BoundingBox} that represents the bounds of the city
 	 */
 	@JsonProperty("bounding_box")
 	protected BoundingBox boundingBox;
@@ -58,22 +58,24 @@ public class Record {
 	/**
 	 * creates a <code>Record</code>
 	 * 
-	 * @param placeType
 	 * @param fullName
 	 * @param country
 	 * @param centro
 	 * @param boundingBox
 	 */
-	public Record(String fullName, String country, Double[] centroid, BoundingBox boundingBox) {
+	public Record(String fullName, String country, Double[] centro, BoundingBox boundingBox) {
+		super(centro);
 		this.fullName = fullName;
 		this.country = country;
-		this.centro = new GeoPoint(centroid);
 		this.boundingBox = boundingBox;
 		this.area = GeoUtils.getArea(this.getBoundingBox().getCoordinates());
 	}
 	
+	/**
+	 * default constructor
+	 */
 	public Record() {
-		
+		super();
 	}
 
 	/**

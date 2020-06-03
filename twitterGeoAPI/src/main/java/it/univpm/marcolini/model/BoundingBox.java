@@ -24,7 +24,7 @@ public class BoundingBox {
     protected String type;
 
     /**
-     * verteces of the boundingBox
+     * an <code>Array</code> a {@link GeoPoint} that represent the verteces of the boundingBox
      */
     @JsonProperty("coordinates")
     protected GeoPoint[] coordinates = new GeoPoint[5];

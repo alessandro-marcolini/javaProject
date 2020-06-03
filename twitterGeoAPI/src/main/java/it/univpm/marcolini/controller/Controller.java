@@ -23,13 +23,15 @@ import it.univpm.marcolini.service.JsonService;
 
 @RestController
 public class Controller {
+	
 	String url= "https://wd4hfxnxxa.execute-api.us-east-2.amazonaws.com/dev/user/1.1/geo/search.json?max_results=1";
+		
 	
 	/**
-	 * Return a <code>Record</code> obtained by the query given as parameter using a GET request
+	 * maps the "/search?city=" endpoint with a get request
 	 * @param city the city to search
-	 * @return a <code>Record</code>
-	 * @throws CityNotFoundException 
+	 * @return a {@link Record}
+	 * @throws CityNotFoundException if no city was found
 	 */
 	@GetMapping("/search")
 	public Record getRecordFromParam(@RequestParam(value= "city")String city) throws CityNotFoundException{
@@ -40,9 +42,9 @@ public class Controller {
 	}
 	
 	/**
-	 * Return an <code>ArrayList</code> of <code>Record</code> obtained by using getRecordFromParam
-	 * @return an <code>ArrayList</code> of <code>Record</code>
-	 * @throws CityNotFoundException 
+	 * maps the "/data" endpoint and use the {@link getRecordFromParam} method
+	 * @return an <code>ArrayList</code> of {@link Record} to pass to {@link getRecordFromParam} method
+	 * @throws CityNotFoundException if no city was found
 	 */
 	@GetMapping("/data")
 	public ArrayList<Record> getResults() throws CityNotFoundException{
@@ -54,6 +56,10 @@ public class Controller {
 		return list;
 	}
 	
+	/**
+	 * maps the "/metadata" endpoint with a get request
+	 * @return an <code>ArrayList</code> of {@link Metadata}
+	 */
 	@GetMapping("/metadata")
 	public ArrayList<Metadata> getMetadata() {
 		ArrayList<Metadata> meta = new ArrayList<Metadata>();
@@ -64,6 +70,11 @@ public class Controller {
 		return meta;
 	}
 	
+	/**
+	 * allows to see the "404 Error" instead of the WhiteLabel page
+	 * @param ex the exception to be thrown
+	 * @return the exception
+	 */
 	@ExceptionHandler(CityNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public CityNotFoundException handleCustomException(CityNotFoundException ex) {

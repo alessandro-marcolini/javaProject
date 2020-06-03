@@ -15,6 +15,9 @@ public class GeoPoint {
 	}
 	
 
+	public GeoPoint() {
+	}
+
 	/**
 	 * @return the lat
 	 */

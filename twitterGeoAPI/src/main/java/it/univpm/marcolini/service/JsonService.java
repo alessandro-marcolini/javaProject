@@ -4,8 +4,6 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import java.io.IOException;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.http.HttpStatus;
@@ -16,7 +14,7 @@ import it.univpm.marcolini.model.Record;
  * 
  * @author Alessandro Marcolini
  * @version 1.0
- *
+ * @see Record
  */
 public class JsonService {
 	/**
@@ -52,16 +50,5 @@ public class JsonService {
 		}
 		return location;
 	}
-	
-//	public static String toJson(Record r) {
-//		String jsonOut = "";
-//		ObjectMapper obj = new ObjectMapper();
-//		try {
-//			jsonOut = obj.writeValueAsString(r);
-//		}catch(IOException e) {
-//			e.printStackTrace();
-//		}
-//		return jsonOut;
-//	}
 	
 }
