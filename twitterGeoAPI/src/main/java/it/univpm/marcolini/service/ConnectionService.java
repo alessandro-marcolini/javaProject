@@ -48,7 +48,7 @@ public class ConnectionService {
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
-		if(response == "")
+		if(response == "" || response == null)
 			throw new GeneralApiErrorException("Problemi riscontrati durante la richiesta al server.");
 		return response;
 	} 

@@ -1,20 +1,43 @@
 package it.univpm.marcolini.model;
 
+/**
+ * Class that represent a geographical point
+ * @author Alessandro Marcolini
+ * @version 1.0
+ */
 public class GeoPoint {
-	public Double lat;
-	public Double lng;
+	/**
+	 * the latitude of the point
+	 */
+	protected Double lat;
+	
+	/**
+	 * the longitude of the point
+	 */
+	protected Double lng;
 
+	/**
+	 * constructor
+	 * @param lng the longitude to set
+	 * @param lat the latitude to set
+	 */
 	public GeoPoint(Double lng, Double lat) {
 		this.lng = lng;
 		this.lat = lat;
 	}
 	
+	/**
+	 * constructor
+	 * @param coord
+	 */
 	public GeoPoint(Double[] coord) {
 		this.lng = coord[0];
 		this.lat = coord[1];
 	}
 	
-
+	/**
+	 * default constructor
+	 */
 	public GeoPoint() {
 	}
 

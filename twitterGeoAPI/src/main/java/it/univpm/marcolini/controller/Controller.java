@@ -18,7 +18,7 @@ import it.univpm.marcolini.model.Record;
 import it.univpm.marcolini.service.ConnectionService;
 import it.univpm.marcolini.service.JsonService;
 /**
- * 
+ * Controller
  * @author Alessandro Marcolini
  * @version 1.0
  *
@@ -69,7 +69,7 @@ public class Controller {
 		ArrayList<Metadata> meta = new ArrayList<Metadata>();
 		meta.add(new Metadata("fullName","full_name", "String"));
 		meta.add(new Metadata("country","country", "String"));
-		meta.add(new Metadata("centro","centroif", "GeoPoint"));
+		meta.add(new Metadata("centro","centroid", "GeoPoint"));
 		meta.add(new Metadata("boundingBox","bounding_box", "BoundingBox"));
 		return meta;
 	}

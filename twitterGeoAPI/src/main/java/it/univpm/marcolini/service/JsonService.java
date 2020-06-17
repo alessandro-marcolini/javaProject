@@ -57,15 +57,15 @@ public class JsonService {
 	
 	/**
 	 * creates an array of random cities from a local json
-	 * @param townJson a json that contains the name of the towns in Italy
+	 * @param file a json that contains the name of the towns in Italy
 	 * @return an array of <code>String</code> which contains ten random cities
 	 */
-	public static String[] randomCities(String filePath){
+	public static String[] randomCities(String file){
 		
 		String townJson="";
 		String line="";
 		try {
-			BufferedReader in = new BufferedReader(new FileReader(filePath));
+			BufferedReader in = new BufferedReader(new FileReader(file));
 			while((line=in.readLine())!=null)
 				townJson += line;
 			in.close();

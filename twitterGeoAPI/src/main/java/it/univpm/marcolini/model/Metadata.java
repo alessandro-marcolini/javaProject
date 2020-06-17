@@ -1,5 +1,10 @@
 package it.univpm.marcolini.model;
 
+/**
+ * Class that represent metadata
+ * @author Alessandro Marcolini
+ * @version 1.0
+ */
 public class Metadata {
 	
 	protected String alias;
@@ -48,6 +53,12 @@ public class Metadata {
 		this.type = type;
 	}
 
+	/**
+	 * Constructor
+	 * @param alias
+	 * @param sourceField
+	 * @param type
+	 */
 	public Metadata(String alias, String sourceField, String type) {
 		this.alias = alias;
 		this.sourceField = sourceField;

@@ -8,6 +8,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import it.univpm.marcolini.util.GeoUtils;
 
 /**
+ * Class that describes a geographical location
  * @author Alessandro Marcolini
  * @version 1.0
  * @see BoundingBox
@@ -24,40 +25,39 @@ public class Record extends GeoPoint{
 	 * city name, region name
 	 */
 	@JsonProperty("full_name")
-	protected String fullName;
+	private String fullName;
 
 	/**
 	 * country name
 	 */
 	@JsonProperty("country")
-	protected String country;
+	private String country;
 
 	/**
 	 * a {@link GeoPoint} that represent the coordinates of the center
 	 */
 
 	@JsonProperty("centroid")
-	protected GeoPoint centro = null;
+	private GeoPoint centro = null;
 
 	/**
 	 * {@link BoundingBox} that represents the bounds of the city
 	 */
 	@JsonProperty("bounding_box")
-	protected BoundingBox boundingBox;
+	private BoundingBox boundingBox;
 	
 	/**
-	 * Area of the record calculated by vertices
+	 * Area of the record
 	 */
-	protected Double area;
+	private Double area;
 	
 	/**
 	 * Perimeter of the record
 	 */
-	protected Double perimeter;
+	private Double perimeter;
 
 	/**
-	 * creates a <code>Record</code>
-	 * 
+	 * constructor
 	 * @param fullName
 	 * @param country
 	 * @param centro
@@ -69,6 +69,7 @@ public class Record extends GeoPoint{
 		this.country = country;
 		this.boundingBox = boundingBox;
 		this.area = GeoUtils.getArea(this.getBoundingBox().getCoordinates());
+		this.perimeter = GeoUtils.getPerimeter(this.getBoundingBox().getCoordinates());
 	}
 	
 	/**
@@ -114,7 +115,7 @@ public class Record extends GeoPoint{
 	}
 
 	/**
-	 * @param centro the centro to set
+	 * @param centroid the centro to set
 	 */
 	public void setCentroid(Double[] centroid) {
 		this.centro = new GeoPoint(centroid);

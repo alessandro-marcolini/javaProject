@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 /**
+ * Class that represent the BoundingBox of a {@link Record}
  * @author Alessandro Marcolini
  * @version 1.0
  * @see GeoPoint
@@ -21,13 +22,13 @@ public class BoundingBox {
      * shape of the boundingBox
      */
     @JsonProperty("type")
-    protected String type;
+    private String type;
 
     /**
-     * an <code>Array</code> a {@link GeoPoint} that represent the verteces of the boundingBox
+     * an <code>Array</code> of {@link GeoPoint} that represent the verteces of the boundingBox
      */
     @JsonProperty("coordinates")
-    protected GeoPoint[] coordinates = new GeoPoint[5];
+    private GeoPoint[] coordinates = new GeoPoint[5];
 
     /**
      * constructor
