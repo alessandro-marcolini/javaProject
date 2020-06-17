@@ -55,14 +55,6 @@
   "latitudine": 40.996451,
   "longitudine": 15.125896
 }, {
-  "id": "72",
-  "id_regione": "16",
-  "codice_citta_metropolitana": "272",
-  "nome": "Bari",
-  "sigla_automobilistica": "BA",
-  "latitudine": 41.117123,
-  "longitudine": 16.871976
-}, {
   "id": "110",
   "id_regione": "16",
   "codice_citta_metropolitana": null,

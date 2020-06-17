@@ -11,12 +11,11 @@ import java.util.Random;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
-import org.springframework.http.HttpStatus;
 
 import it.univpm.marcolini.exception.CityNotFoundException;
 import it.univpm.marcolini.model.Record;
 /**
- * 
+ * Class that contains all the methods related to json management
  * @author Alessandro Marcolini
  * @version 1.0
  * @see Record
@@ -28,11 +27,11 @@ public class JsonService {
 	 * @return json <code>String</code>
 	 * @throws CityNotFoundException if no cities were found
 	 */
-	public static String stringCleaner(String json) {
+	public static String stringCleaner(String json) throws CityNotFoundException {
 		JSONObject response = new JSONObject(json);
 		JSONArray places = response.getJSONObject("result").getJSONArray("places");
 		if(places.isEmpty())
-			throw new CityNotFoundException(HttpStatus.NOT_FOUND, "Città non trovata.");
+			throw new CityNotFoundException("Città non trovata");
 		JSONObject map = places.getJSONObject(0);
 		String jsonClean = map.toString();
 		return jsonClean;
@@ -94,7 +93,7 @@ public class JsonService {
 		int[] values = new int[10];
 		for(int i=0; i<10; i++)
 		{
-			values[i] = gen.nextInt(106) +1;
+			values[i] = gen.nextInt(105) +1;
 		}
 		return values;
 	}

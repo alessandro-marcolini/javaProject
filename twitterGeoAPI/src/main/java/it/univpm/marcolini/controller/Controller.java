@@ -3,13 +3,16 @@ package it.univpm.marcolini.controller;
 import java.util.ArrayList;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import it.univpm.marcolini.exception.ApiRateLimitExceededException;
 import it.univpm.marcolini.exception.CityNotFoundException;
+import it.univpm.marcolini.exception.ErrorObject;
 import it.univpm.marcolini.model.Metadata;
 import it.univpm.marcolini.model.Record;
 import it.univpm.marcolini.service.ConnectionService;
@@ -34,7 +37,7 @@ public class Controller {
 	 * @return a {@link Record}
 	 * @throws CityNotFoundException if no city was found
 	 */
-	@GetMapping("/search/{city}")
+	@RequestMapping(value="/search/{city}", method = RequestMethod.GET)
 	public Record getRecordFromParam(@PathVariable("city") String city) throws CityNotFoundException{
 		url+= "&query=" + city;
 		String json = ConnectionService.getJsonFromURL(url);
@@ -47,9 +50,8 @@ public class Controller {
 	 * @return an <code>ArrayList</code> of {@link Record} to pass to {@link getRecordFromParam} method
 	 * @throws CityNotFoundException if no city was found
 	 */
-	@GetMapping("/data")
+	@RequestMapping(value="/data", method = RequestMethod.GET)
 	public ArrayList<Record> getResults() throws CityNotFoundException{
-		//String[] cities = {"Macerata", "Ancona", "Roma", "Milano", "Palermo", "Genova", "Torino", "Aosta", "Cagliari", "Firenze"};
 		String[] cities = JsonService.randomCities(jsonTownPath);
 		ArrayList<Record> list = new ArrayList<Record>();
 		for(String city : cities) {
@@ -62,24 +64,35 @@ public class Controller {
 	 * maps the "/metadata" endpoint with a get request
 	 * @return an <code>ArrayList</code> of {@link Metadata}
 	 */
-	@GetMapping("/metadata")
+	@RequestMapping(value="/metadata", method = RequestMethod.GET)
 	public ArrayList<Metadata> getMetadata() {
 		ArrayList<Metadata> meta = new ArrayList<Metadata>();
 		meta.add(new Metadata("fullName","full_name", "String"));
 		meta.add(new Metadata("country","country", "String"));
-		meta.add(new Metadata("centroid","centro", "GeoPoint"));
+		meta.add(new Metadata("centro","centroif", "GeoPoint"));
 		meta.add(new Metadata("boundingBox","bounding_box", "BoundingBox"));
 		return meta;
 	}
 	
 	/**
-	 * allows to see the "404 Error" instead of the WhiteLabel page
-	 * @param ex the exception to be thrown
-	 * @return the exception
+	 * Method used to handle {@link CityNotFoundException}
+	 * @param ex
+	 * @return a <code>ResponseEntity</code> object that contains info about the error
 	 */
-	@ExceptionHandler(CityNotFoundException.class)
-    @ResponseStatus(HttpStatus.NOT_FOUND)
-    public CityNotFoundException handleCustomException(CityNotFoundException ex) {
-        return ex;
+	@ExceptionHandler(value = { CityNotFoundException.class })
+    public ResponseEntity<Object> handleException(CityNotFoundException ex) {
+		ErrorObject error = new ErrorObject(HttpStatus.NOT_FOUND, ex.getClass().getSimpleName(), "Città non trovata");
+		return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);	
+    }
+	
+	/**
+	 * Method used to handle {@link ApiRateLimitExceededException}
+	 * @param ex
+	 * @return a <code>ResponseEntity</code> object that contains info about the error
+	 */
+	@ExceptionHandler(value = { ApiRateLimitExceededException.class })
+    public ResponseEntity<Object> handleException(ApiRateLimitExceededException ex) {
+		ErrorObject error = new ErrorObject(HttpStatus.TOO_MANY_REQUESTS, ex.getClass().getSimpleName(), "Superato il limite di richieste");
+		return new ResponseEntity<>(error, HttpStatus.TOO_MANY_REQUESTS);	
     }
 }

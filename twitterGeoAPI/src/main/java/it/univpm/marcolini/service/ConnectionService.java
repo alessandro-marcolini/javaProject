@@ -6,8 +6,11 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.*;
 
+import it.univpm.marcolini.exception.ApiRateLimitExceededException;
+import it.univpm.marcolini.exception.GeneralApiErrorException;
+
 /**
- * 
+ * Class that containes all the methods related to the connection with the API
  * @author Alessandro Marcolini
  * @version 1.0
  *
@@ -17,16 +20,23 @@ public class ConnectionService {
 	/**
 	 * takes the API url as input and returns the response as a <code>String</code>
 	 * @param url the url of the Twitter API
+	 * @throws ApiRateLimitExceededException
 	 * @return the response from the API
 	 */
-	public static String getJsonFromURL(String url) {
+	public static String getJsonFromURL(String url) throws ApiRateLimitExceededException{
 		String response="";
 		try {
-			URLConnection conn = new URL(url).openConnection();
+			HttpURLConnection conn = (HttpURLConnection) new URL(url).openConnection();
 			conn.addRequestProperty("User-Agent", "Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US) AppleWebKit/533.4 (KHTML, like Gecko) Chrome/5.0.375.99 Safari/533.4");
+			
+			int code = conn.getResponseCode();
+			if(code==429) 
+				throw new ApiRateLimitExceededException("Superato il limite di richieste");
+			
 			InputStream in = conn.getInputStream();
 			BufferedReader reader = new BufferedReader(new InputStreamReader(in));
 			
+				
 			String line="";
 			while((line = reader.readLine())!=null)
 				response += line;
@@ -38,8 +48,9 @@ public class ConnectionService {
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
+		if(response == "")
+			throw new GeneralApiErrorException("Problemi riscontrati durante la richiesta al server.");
 		return response;
 	} 
-	
 	
 }
