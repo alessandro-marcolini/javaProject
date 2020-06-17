@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -25,7 +25,7 @@ import it.univpm.marcolini.service.JsonService;
 public class Controller {
 	
 	String url= "https://wd4hfxnxxa.execute-api.us-east-2.amazonaws.com/dev/user/1.1/geo/search.json?max_results=1";
-	String townUrl = "https://raw.githubusercontent.com/napolux/italia/master/json/province.json";
+	String jsonTownPath = "comuni.json";
 
 	
 	/**
@@ -34,8 +34,8 @@ public class Controller {
 	 * @return a {@link Record}
 	 * @throws CityNotFoundException if no city was found
 	 */
-	@GetMapping("/search")
-	public Record getRecordFromParam(@RequestParam(value= "city")String city) throws CityNotFoundException{
+	@GetMapping("/search/{city}")
+	public Record getRecordFromParam(@PathVariable("city") String city) throws CityNotFoundException{
 		url+= "&query=" + city;
 		String json = ConnectionService.getJsonFromURL(url);
 		String jsonClean = JsonService.stringCleaner(json);
@@ -50,8 +50,7 @@ public class Controller {
 	@GetMapping("/data")
 	public ArrayList<Record> getResults() throws CityNotFoundException{
 		//String[] cities = {"Macerata", "Ancona", "Roma", "Milano", "Palermo", "Genova", "Torino", "Aosta", "Cagliari", "Firenze"};
-		String townJson = ConnectionService.getJsonFromURL(townUrl);
-		String[] cities = JsonService.randomCities(townJson);
+		String[] cities = JsonService.randomCities(jsonTownPath);
 		ArrayList<Record> list = new ArrayList<Record>();
 		for(String city : cities) {
 			list.add(getRecordFromParam(city));
@@ -84,5 +83,3 @@ public class Controller {
         return ex;
     }
 }
-
-

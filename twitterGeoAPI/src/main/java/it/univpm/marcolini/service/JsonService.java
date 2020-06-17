@@ -4,6 +4,9 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.Random;
 
 import org.json.JSONArray;
@@ -29,7 +32,7 @@ public class JsonService {
 		JSONObject response = new JSONObject(json);
 		JSONArray places = response.getJSONObject("result").getJSONArray("places");
 		if(places.isEmpty())
-			throw new CityNotFoundException(HttpStatus.NOT_FOUND,"Città non trovata.");
+			throw new CityNotFoundException(HttpStatus.NOT_FOUND, "Città non trovata.");
 		JSONObject map = places.getJSONObject(0);
 		String jsonClean = map.toString();
 		return jsonClean;
@@ -54,17 +57,30 @@ public class JsonService {
 	}
 	
 	/**
-	 * creates an array of random cities from a json
+	 * creates an array of random cities from a local json
 	 * @param townJson a json that contains the name of the towns in Italy
 	 * @return an array of <code>String</code> which contains ten random cities
 	 */
-	public static String[] randomCities(String townJson){
+	public static String[] randomCities(String filePath){
+		
+		String townJson="";
+		String line="";
+		try {
+			BufferedReader in = new BufferedReader(new FileReader(filePath));
+			while((line=in.readLine())!=null)
+				townJson += line;
+			in.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		JSONArray towns = new JSONArray(townJson);
 		int[] num = new int[10];
 		num = randomValues();
 		String[] cities = new String [10];
+		String town="";
 		for(int i=0; i<10; i++) {
-			cities[i] = towns.getJSONObject(num[i]).getString("nome");
+			town = towns.getJSONObject(num[i]).getString("nome");
+			cities[i] = town;
 		}
 		return cities;
 	}
@@ -78,10 +94,9 @@ public class JsonService {
 		int[] values = new int[10];
 		for(int i=0; i<10; i++)
 		{
-			values[i] = gen.nextInt(110) +1;
+			values[i] = gen.nextInt(106) +1;
 		}
 		return values;
 	}
 	
-		
 }
