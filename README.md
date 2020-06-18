@@ -59,7 +59,7 @@ GET | `/data` | Ottenere dati su 10 città casuali
  
   ## La rotta `/data`
   Per ottenere risultati sempre diversi, si sono creati due metodi: randomValues e randomCities. La concatenazione dei due dà come risultato un array di 10 città casuali, prese da un file interno al progetto chiamato "comuni.json".
-  Per ottenere i risultati, si utilizza il precedente metodo (vedi [/data](https://github.com/alessandro-marcolini/javaProject##La-rotta-`/search/nomecittà`)).
+  Per ottenere i risultati, si utilizza il precedente metodo (vedi [/data](https://github.com/alessandro-marcolini/javaProject#la-rotta-searchnomecitt%C3%A0)).
   
   Diagramma di sequenza:
  
