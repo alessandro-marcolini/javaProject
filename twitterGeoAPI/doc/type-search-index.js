@@ -1,1 +1,1 @@
-typeSearchIndex = [{"l":"All Classes","url":"allclasses-index.html"},{"p":"it.univpm.marcolini.util","l":"GeoUtils"}]
+typeSearchIndex = [{"l":"All Classes","url":"allclasses-index.html"},{"p":"it.univpm.marcolini.model","l":"Metadata"}]

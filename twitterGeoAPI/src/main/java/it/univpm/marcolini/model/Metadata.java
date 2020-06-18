@@ -6,10 +6,20 @@ package it.univpm.marcolini.model;
  * @version 1.0
  */
 public class Metadata {
+	/**
+	 * the alias
+	 */
+	private String alias;
 	
-	protected String alias;
-	protected String sourceField;
-	protected String type;
+	/**
+	 * the original name of the field
+	 */
+	private String sourceField;
+	
+	/**
+	 * the type of the object 
+	 */
+	private String type;
 	
 	/**
 	 * @return the alias

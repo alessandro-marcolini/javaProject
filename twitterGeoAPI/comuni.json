@@ -191,14 +191,6 @@
   "latitudine": 42.033443,
   "longitudine": 14.379191
 }, {
-  "id": "13",
-  "id_regione": "3",
-  "codice_citta_metropolitana": null,
-  "nome": "Como",
-  "sigla_automobilistica": "CO",
-  "latitudine": 45.808042,
-  "longitudine": 9.085179
-}, {
   "id": "78",
   "id_regione": "18",
   "codice_citta_metropolitana": null,

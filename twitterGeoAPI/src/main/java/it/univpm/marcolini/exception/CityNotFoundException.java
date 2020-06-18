@@ -2,7 +2,7 @@
 package it.univpm.marcolini.exception;
 
 /**
- * Custom exception
+ * Custom exception to be thrown when no city were found
  * @author Alessandro Marcolini
  * @version 1.0
  *

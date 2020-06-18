@@ -1,1 +1,1 @@
-packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"it.univpm.marcolini.util"}]
+packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"it.univpm.marcolini.model"}]

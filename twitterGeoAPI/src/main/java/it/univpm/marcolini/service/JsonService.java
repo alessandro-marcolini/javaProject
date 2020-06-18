@@ -93,7 +93,7 @@ public class JsonService {
 		int[] values = new int[10];
 		for(int i=0; i<10; i++)
 		{
-			values[i] = gen.nextInt(105) +1;
+			values[i] = gen.nextInt(104) +1;
 		}
 		return values;
 	}
