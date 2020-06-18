@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import it.univpm.marcolini.exception.ApiRateLimitExceededException;
+import it.univpm.marcolini.exception.CharNotAllowedException;
 import it.univpm.marcolini.exception.CityNotFoundException;
 import it.univpm.marcolini.model.Metadata;
 import it.univpm.marcolini.model.Record;
@@ -35,7 +36,9 @@ public class Controller {
 	 */
 	@RequestMapping(value="/search/{city}", method = RequestMethod.GET)
 	public Record getRecordFromParam(@PathVariable("city") String city) 
-			throws CityNotFoundException, ApiRateLimitExceededException{
+			throws CityNotFoundException, ApiRateLimitExceededException, CharNotAllowedException{
+		if(city.contains("'")||city.contains("!")||city.contains("*")||city.contains(":")||city.contains("\""))
+			throw new CharNotAllowedException("Hai inserito dei caratteri non validi");
 		String urlWithParam= url + "&query=" + city;
 		String json = ConnectionService.getJsonFromURL(urlWithParam);
 		String jsonClean = JsonService.stringCleaner(json);

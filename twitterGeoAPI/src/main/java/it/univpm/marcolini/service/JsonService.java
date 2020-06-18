@@ -22,7 +22,7 @@ import it.univpm.marcolini.model.Record;
  */
 public class JsonService {
 	/**
-	 * modifies the response from the API
+	 * modifies the json response from the API
 	 * @param json the API response
 	 * @return json <code>String</code>
 	 * @throws CityNotFoundException if no cities were found
