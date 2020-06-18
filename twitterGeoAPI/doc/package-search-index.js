@@ -1,1 +1,1 @@
-packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"it.univpm.marcolini.model"}]
+packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"it.univpm.marcolini.controller"},{"l":"it.univpm.marcolini.exception"},{"l":"it.univpm.marcolini.model"},{"l":"it.univpm.marcolini.service"},{"l":"it.univpm.marcolini.twitterGeoAPI"},{"l":"it.univpm.marcolini.util"}]

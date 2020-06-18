@@ -1,1 +1,6 @@
+it.univpm.marcolini.controller
+it.univpm.marcolini.exception
 it.univpm.marcolini.model
+it.univpm.marcolini.service
+it.univpm.marcolini.twitterGeoAPI
+it.univpm.marcolini.util
