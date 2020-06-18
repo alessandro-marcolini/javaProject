@@ -48,8 +48,11 @@ GET | `/data` | Ottenere dati su 10 città casuali
  ![MetadataSequenceDiagram](https://github.com/alessandro-marcolini/javaProject/blob/master/UML/MetadataSequenceDiagram.png)
  
  ## La rotta `/search/nomecittà`
-  Il **controller** esegue una chiamata mediante il metodo `getRecordFromParam`, che a sua volta invoca i metodi `getJsonFromUrl`, `stringCleaner` e `toRecord`. Il metodo `getJsonFromUrl` è responsabile della connessione con la API di Twitter. È stato necessario aggiungere l'eccezione ApiRateLimitExceededException in quanto la API di Twitter ha un numero limite di richieste per utente in un determinato intervallo di tempo. C'è quindi un controllo sul codice http della risposta, che se fosse uguale a 429 (Too many request) lancerà l'eccezione.
+  Il **controller** esegue una chiamata mediante il metodo `getRecordFromParam`, che a sua volta invoca i metodi `getJsonFromUrl`, `stringCleaner` e `toRecord`. 
+  
+  Per prima cosa si controlla se il nome della città inserito contiene caratteri non ammessi (", ', !, :, \*). In caso essi siano presenti, viene lanciata un'eccezione di tipo `CharNotAllowedException`. 
   Le eccezioni personalizzate sono gestite dalla classe **GlobalExceptionHandler**.
+  Il metodo `getJsonFromUrl` è responsabile della connessione con la API di Twitter. È stato necessario aggiungere l'eccezione ApiRateLimitExceededException in quanto la API di Twitter ha un numero limite di richieste per utente in un determinato intervallo di tempo. C'è quindi un controllo sul codice http della risposta, che se fosse uguale a 429 (Too many request) lancerà l'eccezione.
   Se invece la richiesta va a buon fine il json ottenuto viene passato come parametro al metodo `stringCleaner`, il quale si occupa di una manipolazione dello stesso. Quello che ne risulta viene passato al metodo `toRecord` che si occupa della deserializzazione del json. Qualora la richiesta alla API di Twitter non avesse prodotto risultati, si ritorna un'eccezione di tipo CityNotFoundException.
   Se invece la richiesta ha prodotto dei risulati, si ritorna il risultato sotto forma di json assieme alle statistiche di area e perimetro (come attributi).
   
@@ -59,7 +62,7 @@ GET | `/data` | Ottenere dati su 10 città casuali
  
   ## La rotta `/data`
   Per ottenere risultati sempre diversi, si sono creati due metodi: randomValues e randomCities. La concatenazione dei due dà come risultato un array di 10 città casuali, prese da un file interno al progetto chiamato "comuni.json".
-  Per ottenere i risultati, si utilizza il precedente metodo (vedi [/data](https://github.com/alessandro-marcolini/javaProject#la-rotta-searchnomecitt%C3%A0)).
+  Per ottenere i risultati, si utilizza il precedente metodo (vedi [/search/nomecittà](https://github.com/alessandro-marcolini/javaProject#la-rotta-searchnomecitt%C3%A0)).
   
   Diagramma di sequenza:
  
